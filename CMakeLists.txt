@@ -42,6 +42,7 @@ include(dependency-graph)
 
 # Add sub-directories
 add_subdirectory(unittests)
+add_subdirectory(benchmark)
 
 # Formating and linting all related files
 file(GLOB_RECURSE SRCS_AND_HDRS src/*.cpp src/*.h benchmark/*.cpp)
