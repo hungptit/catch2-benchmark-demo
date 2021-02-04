@@ -13,6 +13,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(POSITION_INDEPENDENT_CODE ON)
 
+# Enforce AVX2 support for all platforms
+if(MSVC)
+  add_compile_options(/arch:AVX2)
+else()
+  add_compile_options(-static)
+  add_compile_options(-pedantic)
+  add_compile_options(-pedantic-errors)
+  add_compile_options(-mavx2)
+  add_compile_options(-mfma)
+endif()
+
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(FetchContent)
