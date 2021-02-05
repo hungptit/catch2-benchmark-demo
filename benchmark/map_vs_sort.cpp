@@ -1,6 +1,6 @@
-
 #define CATCH_CONFIG_MAIN
 #define CATCH_CONFIG_ENABLE_BENCHMARKING
+#define BENCHMARK_ADVANCED
 #include "catch2/catch.hpp"
 
 #include <cstdint>
@@ -46,5 +46,9 @@ TEST_CASE("Compare map and sort performance") {
     
     BENCHMARK("sort 1000 elements") {
         return algorithm::get_sorted_strings_using_sort(vec_1000);
-    };    
+    };
+
+    BENCHMARK_ADVANCED("advanced")(Catch::Benchmark::Chronometer meter) {
+        meter.measure([] { return algorithm::get_sorted_strings_using_sort(vec_1000); });
+    };
 }
