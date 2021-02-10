@@ -1,6 +1,6 @@
 enable_testing()
 
-set(TEST_EXECUTABLE algorithm_test)
+set(TEST_EXECUTABLE algorithm_test bdd_test)
 foreach(test_executable ${TEST_EXECUTABLE})
   add_executable(${test_executable} ${test_executable}.cpp)
   target_include_directories(
