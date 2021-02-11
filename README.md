@@ -55,3 +55,86 @@ assertions: - none -
 
 ## How to build Catch2 demos on Windows  ##
 
+# Writing test/benchmark using BDD style #
+
+Consider this simple benchmark code that analyses the effect of cache locality on the performance of the lookup performance
+
+``` c++
+SCENARIO(
+    "Performance comparison for different approach for looking up a std::string item.") {
+  GIVEN("There are 10 items and the size of each item is 32.") {
+      run_string_perf(10, 32);
+  }
+
+  GIVEN("There are 10 items and the size of each item is 16.") {
+      run_string_perf(10, 16);
+  }
+
+  GIVEN("There are 50 items and the size of each item is 32.") {
+      run_string_perf(50, 32);
+  }
+
+  GIVEN("There are 50 items and the size of each item is 16.") {
+     run_string_perf(50, 16);
+  }
+}
+```
+
+**What does the above code do?**
+
+* Create a performance benchmark scenario for looking up a string using std::vector, std::set, and std::unordered_set.
+* For each studied look up table size run the benchmark with different type of look-up keys.
+
+Compare with other benchmarking framework suche as Google benchmark, Celero, and nonious etc this syntax look more natural and below is the parital output of the benchmark.
+It is obvious that Catch2 automates all of the registration work us and it also provides very descriptive output. Most of the existing testing frameworks (except [doctest](https://github.com/onqtam/doctest)) do not
+provide this functionality.
+
+``` c++
+./benchmark/lookup --benchmark-no-analysis
+...
+
+-------------------------------------------------------------------------------
+Scenario: Performance comparison for different approach for looking up a std::
+          string item.
+      Given: There are 10 items and the size of each item is 16.
+       When: The matched item is at the end of the vector
+-------------------------------------------------------------------------------
+/Users/hung.dang/working/catch2-benchmark-demo/benchmark/lookup.cpp:23
+...............................................................................
+
+benchmark name                            samples    iterations          mean
+-------------------------------------------------------------------------------
+O(n) algorithm                                 100          2333    16.9626 ns
+O(1) algorithm                                 100          1259    20.6444 ns
+O(log(n)) algorithm                            100          1400    28.5404 ns
+
+-------------------------------------------------------------------------------
+Scenario: Performance comparison for different approach for looking up a std::
+          string item.
+      Given: There are 10 items and the size of each item is 16.
+       When: The matched item is at the middle of the vector
+-------------------------------------------------------------------------------
+/Users/hung.dang/working/catch2-benchmark-demo/benchmark/lookup.cpp:36
+...............................................................................
+
+benchmark name                            samples    iterations          mean
+-------------------------------------------------------------------------------
+O(n) algorithm                                 100          2216    16.6652 ns
+O(1) algorithm                                 100          1697     21.426 ns
+O(log(n)) algorithm                            100          2409    14.3842 ns
+
+-------------------------------------------------------------------------------
+Scenario: Performance comparison for different approach for looking up a std::
+          string item.
+      Given: There are 10 items and the size of each item is 16.
+       When: The matched item is at the beginning of the vector
+-------------------------------------------------------------------------------
+/Users/hung.dang/working/catch2-benchmark-demo/benchmark/lookup.cpp:49
+...............................................................................
+
+benchmark name                            samples    iterations          mean
+-------------------------------------------------------------------------------
+O(n) algorithm                                 100          5562    7.32783 ns
+O(1) algorithm                                 100          1691    21.4104 ns
+O(log(n)) algorithm                            100          1318     28.365 ns
+```
