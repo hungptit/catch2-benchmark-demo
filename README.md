@@ -105,7 +105,7 @@ assertions: - none -
 
 # Writing test/benchmark using BDD style #
 
-Consider this simple benchmark code that analyses the effect of cache locality on the performance of the lookup performance
+Consider this simple benchmark code that analyses the effect of cache locality on the performance of diferent lookup algorithms
 
 ``` c++
 SCENARIO(
