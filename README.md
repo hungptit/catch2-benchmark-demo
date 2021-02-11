@@ -1,4 +1,4 @@
-# Why Catch2 #
+# Why [Catch2](https://github.com/catchorg/Catch2) #
 
 * Is simple and natural. Tests auto-register them self with any identifer, assertions look like normal C++ code, and sections offer a nice way to share set-up and tear-down test code.
 * Provide simple micro-benchmarking features and simple BDD macros.
