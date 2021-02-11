@@ -62,6 +62,46 @@ cmake --build . --config Release -- /maxcpucount
 
 **Run all tests**
 
+``` powershell
+ctest -j3
+```
+
+**Run benchmarks**
+
+``` powershell
+benchmark\Release\lookup.exe --benchmark-no-analysis
+```
+
+Below is the sample results collected using my Windows machine
+
+``` text
+tsi\hdang@NTRAN2 D:\experiments\catch2-benchmark-demo>benchmark\Release\map_vs_sort.exe --benchmark-no-analysis
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+map_vs_sort.exe is a Catch v2.13.1 host application.
+Run with -? for options
+
+-------------------------------------------------------------------------------
+Compare map and sort performance
+-------------------------------------------------------------------------------
+D:\experiments\catch2-benchmark-demo\benchmark\map_vs_sort.cpp(27)
+...............................................................................
+
+benchmark name                            samples    iterations          mean
+-------------------------------------------------------------------------------
+map 10 elements                                100            18    3.75472 us
+sort 10 elements                               100            40     1.6397 us
+map 100 elements                               100             2     43.879 us
+sort 100 elements                              100             3    22.4593 us
+map 1000 elements                              100             1     613.04 us
+sort 1000 elements                             100             1    309.522 us
+advanced                                       100             1    305.267 us
+
+===============================================================================
+test cases: 1 | 1 passed
+assertions: - none -
+
+```
 
 # Writing test/benchmark using BDD style #
 
