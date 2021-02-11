@@ -55,6 +55,14 @@ assertions: - none -
 
 ## How to build Catch2 demos on Windows  ##
 
+``` powershell
+cmake -G "Visual Studio 14 2015"  -A x64 .
+cmake --build . --config Release -- /maxcpucount
+```
+
+**Run all tests**
+
+
 # Writing test/benchmark using BDD style #
 
 Consider this simple benchmark code that analyses the effect of cache locality on the performance of the lookup performance

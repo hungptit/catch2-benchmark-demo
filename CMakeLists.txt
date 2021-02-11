@@ -91,16 +91,18 @@ add_custom_target(
   DEPENDS .format_cpp_stamp .format_cmake_stamp
   COMMENT "Format C++ and CMake files.")
 
-add_custom_command(
-  OUTPUT .lint_cmake_stamp
-  DEPENDS ${CMAKE_FILES}
-  COMMAND cmake-lint ${CMAKE_FILES}
-  COMMAND touch .lint_cmake_stamp
-  COMMENT "Lint CMake files with cmake-lint.")
+if(UNIX)
+  add_custom_command(
+    OUTPUT .lint_cmake_stamp
+    DEPENDS ${CMAKE_FILES}
+    COMMAND cmake-lint ${CMAKE_FILES}
+    COMMAND touch .lint_cmake_stamp
+    COMMENT "Lint CMake files with cmake-lint.")
 
-add_custom_target(
-  lint ALL
-  DEPENDS .lint_cmake_stamp
-  COMMENT "Lint CMake files.")
+  add_custom_target(
+    lint ALL
+    DEPENDS .lint_cmake_stamp
+    COMMENT "Lint CMake files.")
+endif()
 
 enable_testing()
