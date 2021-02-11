@@ -62,8 +62,7 @@ void run_string_perf(const std::uint32_t number_of_elements,
 }
 } // namespace
 
-SCENARIO("Performance comparison for different approach for looking up a "
-         "std::string item.") {
+SCENARIO("micro-benchmark for different search algorithms for std::string") {
   GIVEN("There are 10 items and the size of each item is 32.") {
     run_string_perf(10, 32);
   }
