@@ -3,6 +3,41 @@
 * Is simple and natural. Tests auto-register them self with any identifer, assertions look like normal C++ code, and sections offer a nice way to share set-up and tear-down test code.
 * Provide simple micro-benchmarking features and simple BDD macros.
 
+# A very short introduction to Catch2 features #
+
+
+## Assertions ##
+
+**REQUIRE**
+
+Abort the test executable if the condition is false. This is very handy assertion which makes sure that we do not go too far if our expectation is not met (e.g cannot load the workbook).
+
+
+``` c++
+REQUIRE(isAvailable());
+```
+
+
+**CHECK**
+
+**CHECK_THAT**
+
+
+
+**CHECK_THROWS**
+
+**TEST_CASE or TAB_TEST_CASE**
+
+**SECTION**
+
+**SCENARIO**
+
+**GIVEN**
+
+**WHEN**
+
+**BENCHMARK**
+
 # Howto #
 
 ## How to build Catch2 demos on Linux/macOS  ##
@@ -186,3 +221,7 @@ O(n) algorithm                                 100          5562    7.32783 ns
 O(1) algorithm                                 100          1691    21.4104 ns
 O(log(n)) algorithm                            100          1318     28.365 ns
 ```
+
+# How to run Tableau's Catch2 tests #
+
+
