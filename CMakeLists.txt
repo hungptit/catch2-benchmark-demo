@@ -58,13 +58,22 @@ add_subdirectory(benchmark)
 # Formating and linting all related files
 file(GLOB_RECURSE SRCS_AND_HDRS src/*.cpp src/*.h benchmark/*.cpp)
 find_program(CLANG_FORMAT NAMES clang-format)
-add_custom_command(
-  OUTPUT .format_cpp_stamp
-  DEPENDS ${SRCS_AND_HDRS}
-  COMMAND ${CLANG_FORMAT} -i ${SRCS_AND_HDRS}
-  COMMAND touch .format_cpp_stamp
-  COMMENT "Format C++ files with clang-format."
-  VERBATIM)
+if(${CLANG_FORMAT} STREQUAL "CLANG_FORMAT-NOTFOUND")
+  add_custom_command(
+    OUTPUT .format_cpp_stamp
+    DEPENDS ${CMAKE_FILES}
+    COMMAND touch .format_cpp_stamp
+    COMMENT "Skip formatting CMake files."
+    VERBATIM)
+else()
+  add_custom_command(
+    OUTPUT .format_cpp_stamp
+    DEPENDS ${SRCS_AND_HDRS}
+    COMMAND ${CLANG_FORMAT} -i ${SRCS_AND_HDRS}
+    COMMAND touch .format_cpp_stamp
+    COMMENT "Format C++ files with clang-format."
+    VERBATIM)
+endif()
 
 file(GLOB CMAKE_FILES CMakeLists.txt src/CMakeLists.txt
      unittests/CMakeLists.txt)
@@ -91,18 +100,27 @@ add_custom_target(
   DEPENDS .format_cpp_stamp .format_cmake_stamp
   COMMENT "Format C++ and CMake files.")
 
-if(UNIX)
+
+find_program(CMAKE_LINT NAMES cmake-lint)
+if(${CMAKE_LINT} STREQUAL "CMAKE_LINT-NOTFOUND")
   add_custom_command(
     OUTPUT .lint_cmake_stamp
     DEPENDS ${CMAKE_FILES}
-    COMMAND cmake-lint ${CMAKE_FILES}
+    COMMAND touch .lint_cmake_stamp
+    COMMENT "Skip linting CMake files."
+    VERBATIM)
+elseif()
+  add_custom_command(
+    OUTPUT .lint_cmake_stamp
+    DEPENDS ${CMAKE_FILES}
+    COMMAND ${CMAKE_LINT} ${CMAKE_FILES}
     COMMAND touch .lint_cmake_stamp
     COMMENT "Lint CMake files with cmake-lint.")
-
-  add_custom_target(
-    lint ALL
-    DEPENDS .lint_cmake_stamp
-    COMMENT "Lint CMake files.")
 endif()
+
+add_custom_target(
+  lint ALL
+  DEPENDS .lint_cmake_stamp
+  COMMENT "Lint CMake files.")
 
 enable_testing()
