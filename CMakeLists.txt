@@ -55,7 +55,7 @@ include(dependency-graph)
 add_subdirectory(unittests)
 add_subdirectory(benchmark)
 
-# Formating and linting all related files
+# Format all CMake and C++ files
 file(GLOB_RECURSE SRCS_AND_HDRS src/*.cpp src/*.h benchmark/*.cpp)
 find_program(CLANG_FORMAT NAMES clang-format)
 if(${CLANG_FORMAT} STREQUAL "CLANG_FORMAT-NOTFOUND")
@@ -100,7 +100,7 @@ add_custom_target(
   DEPENDS .format_cpp_stamp .format_cmake_stamp
   COMMENT "Format C++ and CMake files.")
 
-
+# Lint all CMake files
 find_program(CMAKE_LINT NAMES cmake-lint)
 if(${CMAKE_LINT} STREQUAL "CMAKE_LINT-NOTFOUND")
   add_custom_command(
