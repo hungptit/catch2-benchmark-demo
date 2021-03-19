@@ -10,11 +10,11 @@ namespace {
 }
 
 TEST_CASE( "Factorial" ) {
-    SECTION("2: Factorial of 0 is 1 (fail)", "[multi-file:2]") {
+    SECTION("Factorial of 0 is 1 (fail)") {
         REQUIRE( Factorial(0) == 1 );
     }
 
-    SECTION("2: Factorials of 1 and higher are computed (pass)", "[multi-file:2]") {
+    SECTION("Factorials of 1 and higher are computed (pass)") {
         REQUIRE( Factorial(1) == 1 );
         REQUIRE( Factorial(2) == 2 );
         REQUIRE( Factorial(3) == 6 );
