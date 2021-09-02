@@ -1,7 +1,7 @@
 enable_testing()
 
-set(TEST_EXECUTABLE algorithm_test bdd_test objects_test)
-foreach(test_executable ${TEST_EXECUTABLE})
+set(TEST_EXECUTABLES algorithm_test bdd_test objects_test matcher_test)
+foreach(test_executable ${TEST_EXECUTABLES})
   add_executable(${test_executable} ${test_executable}.cpp)
   target_include_directories(
     ${test_executable} PRIVATE ${catch2_SOURCE_DIR}/single_include/

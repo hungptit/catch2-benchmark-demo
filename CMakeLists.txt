@@ -1,28 +1,15 @@
-cmake_policy(SET CMP0048 NEW)
 project(
   cppidioms
-  VERSION 0.1.0
   LANGUAGES CXX)
 cmake_minimum_required(VERSION 3.15)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Use C++ 14
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(POSITION_INDEPENDENT_CODE ON)
-
-# Enforce AVX2 support for all platforms
-if(MSVC)
-  add_compile_options(/arch:AVX2)
-else()
-  add_compile_options(-static)
-  add_compile_options(-pedantic)
-  add_compile_options(-pedantic-errors)
-  add_compile_options(-mavx2)
-  add_compile_options(-mfma)
-endif()
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(ENABLE_ALL_WARNINGS ON)
 
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -39,8 +26,7 @@ FetchContent_MakeAvailable(Catch2)
 FetchContent_Declare(
   cmake_scripts
   GIT_REPOSITORY https://github.com/StableCoder/cmake-scripts.git
-  GIT_TAG main
-  GIT_SHALLOW TRUE)
+  GIT_TAG main)
 
 FetchContent_Populate(cmake_scripts)
 
