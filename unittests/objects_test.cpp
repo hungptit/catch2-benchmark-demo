@@ -75,10 +75,10 @@ SCENARIO("Write tests using SCENARIO")
 //     CPPUNIT_TEST(RunFirstCheck());
 //     CPPUNIT_TEST(RunSecondCheck());
 //     CPPUNIT_TEST_SUITE_END();
-    
+
 //     bool RunFirstCheck();
 //     bool RunSecondCheck();
-    
+
 //     void setUp() override;
 //     void tearDown() override;
 // private:

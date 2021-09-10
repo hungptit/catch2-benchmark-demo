@@ -1,6 +1,4 @@
-project(
-  cppidioms
-  LANGUAGES CXX)
+project(cppidioms LANGUAGES CXX)
 cmake_minimum_required(VERSION 3.15)
 
 # Use C++ 14
@@ -42,7 +40,8 @@ add_subdirectory(unittests)
 add_subdirectory(benchmark)
 
 # Format all CMake and C++ files
-file(GLOB_RECURSE SRCS_AND_HDRS src/*.cpp src/*.h benchmark/*.cpp)
+file(GLOB_RECURSE SRCS_AND_HDRS src/*.cpp src/*.h benchmark/*.cpp
+     unittests/*.cpp)
 find_program(CLANG_FORMAT NAMES clang-format)
 if(${CLANG_FORMAT} STREQUAL "CLANG_FORMAT-NOTFOUND")
   add_custom_command(
