@@ -6,63 +6,63 @@
 #define CATCH_CONFIG_MAIN
 #include "catch2/catch.hpp"
 
-// namespace
-// {
-struct Person
+namespace
 {
-    std::string first_name;
-    std::string last_name;
-    int age;
-};
-
-bool operator==(const Person& lhs, const Person& rhs)
-{
-    return std::tie(lhs.first_name, lhs.last_name, lhs.age) == std::tie(rhs.first_name, rhs.last_name, rhs.age);
-}
-
-std::ostream& operator<<(std::ostream& os, const Person& person)
-{
-    os << "{"
-       << "\"first_name\":\"" << person.first_name << "\",\"last_name\":\"" << person.last_name
-       << "\",\"age\":" << person.age << "}";
-    return os;
-}
-
-struct Contains : Catch::Matchers::Impl::MatcherBase<std::set<std::string>>
-{
-    Contains(const std::set<std::string>& expectedValues)
-        : m_expectedValues(expectedValues)
+    struct Person
     {
+        std::string first_name;
+        std::string last_name;
+        int age;
+    };
+
+    bool operator==(const Person& lhs, const Person& rhs)
+    {
+        return std::tie(lhs.first_name, lhs.last_name, lhs.age) == std::tie(rhs.first_name, rhs.last_name, rhs.age);
     }
 
-    bool match(const std::set<std::string>& v) const override
+    std::ostream& operator<<(std::ostream& os, const Person& person)
     {
-        m_missingValues.clear();
-        bool result = true;
-        for (auto const& item : m_expectedValues)
+        os << "{"
+           << "\"first_name\":\"" << person.first_name << "\",\"last_name\":\"" << person.last_name
+           << "\",\"age\":" << person.age << "}";
+        return os;
+    }
+
+    struct Contains : Catch::Matchers::Impl::MatcherBase<std::set<std::string>>
+    {
+        Contains(const std::set<std::string>& expectedValues)
+            : m_expectedValues(expectedValues)
         {
-            if (v.count(item) == 0)
-            {
-                m_missingValues.push_back(item);
-                result = false;
-            }
         }
-        return result;
-    }
 
-    virtual std::string describe() const override
-    {
-        return "\n\nDoes not contain :\n\n" + Catch::Detail::stringify(m_expectedValues) +
-               "\n\nThese are missing values:\n\n" + Catch::Detail::stringify(m_missingValues);
-    }
+        bool match(const std::set<std::string>& v) const override
+        {
+            m_missingValues.clear();
+            bool result = true;
+            for (auto const& item : m_expectedValues)
+            {
+                if (v.count(item) == 0)
+                {
+                    m_missingValues.push_back(item);
+                    result = false;
+                }
+            }
+            return result;
+        }
 
-    const std::set<std::string>& m_expectedValues;
+        virtual std::string describe() const override
+        {
+            return "\n\nDoes not contain :\n\n" + Catch::Detail::stringify(m_expectedValues) +
+                   "\n\nThese are missing values:\n\n" + Catch::Detail::stringify(m_missingValues);
+        }
 
-    // The mutable keyword will let us mark match method as const, i.e same as
-    // that of the base class.
-    mutable std::vector<std::string> m_missingValues;
-};
-// } // namespace
+        const std::set<std::string>& m_expectedValues;
+
+        // The mutable keyword will let us mark match method as const, i.e same as
+        // that of the base class.
+        mutable std::vector<std::string> m_missingValues;
+    };
+} // namespace
 
 TEST_CASE("User defined == and << operators")
 {
