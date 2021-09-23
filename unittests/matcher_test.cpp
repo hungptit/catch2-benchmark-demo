@@ -6,28 +6,10 @@
 #define CATCH_CONFIG_MAIN
 #include "catch2/catch.hpp"
 
+#include "unittests/catch2_helper.h"
+
 namespace
 {
-    struct Person
-    {
-        std::string first_name;
-        std::string last_name;
-        int age;
-    };
-
-    bool operator==(const Person& lhs, const Person& rhs)
-    {
-        return std::tie(lhs.first_name, lhs.last_name, lhs.age) == std::tie(rhs.first_name, rhs.last_name, rhs.age);
-    }
-
-    std::ostream& operator<<(std::ostream& os, const Person& person)
-    {
-        os << "{"
-           << "\"first_name\":\"" << person.first_name << "\",\"last_name\":\"" << person.last_name
-           << "\",\"age\":" << person.age << "}";
-        return os;
-    }
-
     struct Contains : Catch::Matchers::Impl::MatcherBase<std::set<std::string>>
     {
         Contains(const std::set<std::string>& expectedValues)
@@ -66,8 +48,8 @@ namespace
 
 TEST_CASE("User defined == and << operators")
 {
-    Person a = {"John", "Doe", 30};
-    Person b = {"Alan", "Smith", 40};
+    unittests::Person a = {"John", "Doe", 30};
+    unittests::Person b = {"Alan", "Smith", 40};
     CHECK(a == b);
     CHECK(a == a);
 }
