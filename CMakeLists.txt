@@ -13,27 +13,25 @@ set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(FetchContent)
 
-# Catch2
-FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG v2.13.4)
-FetchContent_MakeAvailable(Catch2)
-
 # cmake-scripts
 FetchContent_Declare(
   cmake_scripts
   GIT_REPOSITORY https://github.com/StableCoder/cmake-scripts.git
   GIT_TAG main)
-
 FetchContent_Populate(cmake_scripts)
-
 set(CMAKE_MODULE_PATH "${cmake_scripts_SOURCE_DIR}/;")
 include(c++-standards)
 include(code-coverage)
 include(sanitizers)
 include(tools)
 include(dependency-graph)
+
+# Catch2
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG devel)
+FetchContent_MakeAvailable(Catch2)
 
 # Add sub-directories
 add_subdirectory(unittests)

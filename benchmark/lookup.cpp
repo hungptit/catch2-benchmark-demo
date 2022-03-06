@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #define CATCH_CONFIG_ENABLE_BENCHMARKING
-#define BENCHMARK_ADVANCED
-#include "catch2/catch.hpp"
+#include "catch2/benchmark/catch_benchmark.hpp"
+#include "catch2/catch_test_macros.hpp"
 
 #include "random_string.hpp"
 #include <algorithm>

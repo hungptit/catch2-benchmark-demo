@@ -4,13 +4,15 @@
 #include <tuple>
 
 #define CATCH_CONFIG_MAIN
-#include "catch2/catch.hpp"
+#include "catch2/catch_test_macros.hpp"
+#include "catch2/matchers/catch_matchers.hpp"
+#include "catch2/matchers/catch_matchers_templated.hpp"
 
 #include "unittests/catch2_helper.h"
 
 namespace
 {
-    struct Contains : Catch::Matchers::Impl::MatcherBase<std::set<std::string>>
+    struct Contains : Catch::Matchers::MatcherBase<std::set<std::string>>
     {
         Contains(const std::set<std::string>& expectedValues)
             : m_expectedValues(expectedValues)
