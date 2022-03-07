@@ -9,6 +9,11 @@ set(POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(ENABLE_ALL_WARNINGS ON)
 
+# Only enable this option for non-Windows platforms.
+if(NOT MSVC)
+  add_compile_options(-ftime-report)
+endif()
+
 set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(FetchContent)
