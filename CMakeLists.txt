@@ -128,3 +128,6 @@ add_custom_target(
   lint ALL
   DEPENDS .lint_shellcheck_stamp .lint_cmake_stamp
   COMMENT "Lint Bash and CMake files.")
+
+# Enable tests
+enable_testing()
