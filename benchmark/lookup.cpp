@@ -11,7 +11,8 @@
 
 namespace
 {
-    void run_string_perf(const std::uint32_t number_of_elements, const std::uint32_t len)
+    void run_string_perf(
+        const std::uint32_t number_of_elements, const std::uint32_t len)
     {
         utils::RandomStringGenerator rgn;
         std::vector<std::string> data(number_of_elements);
@@ -29,7 +30,9 @@ namespace
 
             BENCHMARK("O(n) algorithm")
             {
-                return std::any_of(data.cbegin(), data.cend(), [&needle](auto& val) { return val == needle; });
+                return std::any_of(
+                    data.cbegin(), data.cend(),
+                    [&needle](auto& val) { return val == needle; });
             };
 
             BENCHMARK("O(1) algorithm")
@@ -49,7 +52,9 @@ namespace
 
             BENCHMARK("O(n) algorithm")
             {
-                return std::any_of(data.cbegin(), data.cend(), [&needle](auto& val) { return val == needle; });
+                return std::any_of(
+                    data.cbegin(), data.cend(),
+                    [&needle](auto& val) { return val == needle; });
             };
 
             BENCHMARK("O(1) algorithm")
@@ -69,7 +74,9 @@ namespace
 
             BENCHMARK("O(n) algorithm")
             {
-                return std::any_of(data.cbegin(), data.cend(), [&needle](auto& val) { return val == needle; });
+                return std::any_of(
+                    data.cbegin(), data.cend(),
+                    [&needle](auto& val) { return val == needle; });
             };
 
             BENCHMARK("O(1) algorithm")
