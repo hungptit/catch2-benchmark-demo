@@ -9,7 +9,8 @@
 
 namespace
 {
-    std::vector<std::string> generate_test_vector(const uint32_t array_size, const uint32_t strlen)
+    std::vector<std::string> generate_test_vector(
+        const uint32_t array_size, const uint32_t strlen)
     {
         utils::RandomStringGenerator rgn;
         std::vector<std::string> results(array_size);

@@ -71,7 +71,8 @@ SCENARIO("Write tests using SCENARIO")
 // class MyClassTest : public CppUnit::TestFixture
 // {
 // public:
-//     CPPUNIT_TEST_SUITE_EX(MyClassTest, PRIMARY_TEAM(MY_TEAM));
+//     CPPUNIT_TEST_SUITE_EX(MyClassTest,
+//     PRIMARY_TEAM(MY_TEAM));
 //     CPPUNIT_TEST(RunFirstCheck());
 //     CPPUNIT_TEST(RunSecondCheck());
 //     CPPUNIT_TEST_SUITE_END();
@@ -97,13 +98,17 @@ SCENARIO("Write tests using SCENARIO")
 
 // void MyClassTest::RunFirstCheck()
 // {
-//     CPPUNIT_ASSERT(m_myObject->RunFirstCheck("Run the first check.\n"));
+//     CPPUNIT_ASSERT(m_myObject->RunFirstCheck("Run the
+//     first check.\n"));
 // }
 
 // void MyClassTest::RunSecondCheck()
 // {
-//     CPPUNIT_ASSERT(m_myObject->RunSecondCheck("Run the second check.\n"));
+//     CPPUNIT_ASSERT(m_myObject->RunSecondCheck("Run the
+//     second check.\n"));
 // }
 
-// CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(MyClassTest, TestSuites::AllTests());
-// CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(MyClassTest, TestSuites::ModulePrecommitTests());
+// CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(MyClassTest,
+// TestSuites::AllTests());
+// CPPUNIT_TEST_SUITE_NAMED_REGISTRATION(MyClassTest,
+// TestSuites::ModulePrecommitTests());

@@ -1,4 +1,4 @@
-set(TEST_EXECUTABLES algorithm_test bdd_test objects_test matcher_test)
+set(TEST_EXECUTABLES algorithm_test bdd_test objects_test matcher_test exception_test)
 foreach(test_executable ${TEST_EXECUTABLES})
   add_executable(${test_executable} ${test_executable}.cpp)
   target_link_libraries(${test_executable} Catch2::Catch2

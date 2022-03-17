@@ -9,7 +9,10 @@ set(POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(ENABLE_ALL_WARNINGS ON)
 
-set(ROOT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+# Only enable this option for non-Windows platforms.
+if(NOT MSVC)
+  add_compile_options(-ftime-report)
+endif()
 
 include(FetchContent)
 
@@ -125,3 +128,6 @@ add_custom_target(
   lint ALL
   DEPENDS .lint_shellcheck_stamp .lint_cmake_stamp
   COMMENT "Lint Bash and CMake files.")
+
+# Enable tests
+enable_testing()

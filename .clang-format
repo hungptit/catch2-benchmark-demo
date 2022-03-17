@@ -46,7 +46,7 @@ BreakConstructorInitializers: BeforeComma
 BreakAfterJavaFieldAnnotations: false
 # clang-format doesn't understand our TS macro for string literals. Until we can deprecate it, we need to disable breaking string literals across lines.
 BreakStringLiterals: false
-ColumnLimit:     120
+ColumnLimit:     80
 CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerAllOnOneLineOrOnePerLine: false
@@ -76,7 +76,7 @@ IncludeCategories:
     Priority:        1
 IncludeIsMainRegex: '$'
 IndentCaseLabels: true
-IndentPPDirectives: AfterHash
+IndentPPDirectives: BeforeHash
 IndentWidth:     4
 IndentWrappedFunctionNames: false
 JavaScriptQuotes: Leave
