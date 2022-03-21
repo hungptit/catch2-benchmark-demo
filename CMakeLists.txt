@@ -36,6 +36,21 @@ FetchContent_Declare(
   GIT_TAG devel)
 FetchContent_MakeAvailable(Catch2)
 
+# gtest/gmock
+FetchContent_Declare(
+  gtest
+  GIT_REPOSITORY git@github.com:google/googletest.git
+  GIT_TAG main)
+set(BUILD_GMOCK ON)
+FetchContent_MakeAvailable(gtest)
+
+# nanobench
+FetchContent_Declare(
+  nanobench
+  GIT_REPOSITORY git@github.com:google/googletest.git
+  GIT_TAG master)
+FetchContent_MakeAvailable(nanobench)
+
 # Add sub-directories
 add_subdirectory(unittests)
 add_subdirectory(benchmark)
