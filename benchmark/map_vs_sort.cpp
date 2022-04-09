@@ -72,8 +72,11 @@ TEST_CASE("Compare map and sort performance")
         constexpr int warmupTimes = 3;
         SECTION("10 elements")
         {
-            auto bench = ankerl::nanobench::Bench().title("10 elements").warmup(warmupTimes).relative(true);
-            
+            auto bench = ankerl::nanobench::Bench()
+                             .title("10 elements")
+                             .warmup(warmupTimes)
+                             .relative(true);
+
             bench.run(
                 "Using std::map",
                 []()
@@ -93,7 +96,10 @@ TEST_CASE("Compare map and sort performance")
 
         SECTION("100 elements")
         {
-            auto bench = ankerl::nanobench::Bench().title("100 elements").warmup(warmupTimes).relative(true);
+            auto bench = ankerl::nanobench::Bench()
+                             .title("100 elements")
+                             .warmup(warmupTimes)
+                             .relative(true);
             bench.run(
                 "Using std::map",
                 []()
@@ -113,7 +119,10 @@ TEST_CASE("Compare map and sort performance")
 
         SECTION("1000 elements")
         {
-            auto bench = ankerl::nanobench::Bench().title("1000 elements").warmup(warmupTimes).relative(true);
+            auto bench = ankerl::nanobench::Bench()
+                             .title("1000 elements")
+                             .warmup(warmupTimes)
+                             .relative(true);
             bench.run(
                 "Using std::map",
                 []()
