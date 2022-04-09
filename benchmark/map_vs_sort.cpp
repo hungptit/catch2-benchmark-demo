@@ -8,6 +8,7 @@
 #include "map_vs_hash.hpp"
 #include "random_string.hpp"
 #include <cstdint>
+#include <fstream>
 
 namespace
 {
@@ -26,6 +27,18 @@ namespace
     const auto vec_10 = generate_test_vector(10, 32);
     const auto vec_100 = generate_test_vector(100, 32);
     const auto vec_1000 = generate_test_vector(1000, 32);
+
+    void gen(
+        std::string const& typeName,
+        char const* mustacheTemplate,
+        ankerl::nanobench::Bench const& bench)
+    {
+        std::ofstream templateOut("mustache.template." + typeName);
+        templateOut << mustacheTemplate;
+
+        std::ofstream renderOut("mustache.render." + typeName);
+        ankerl::nanobench::render(mustacheTemplate, bench, renderOut);
+    }
 
 } // namespace
 
@@ -93,6 +106,8 @@ TEST_CASE("Compare map and sort performance")
                     ankerl::nanobench::doNotOptimizeAway(
                         algorithm::get_sorted_strings_using_sort(vec_10));
                 });
+
+            gen("csv", ankerl::nanobench::templates::csv(), bench);
         }
 
         SECTION("100 elements")
@@ -117,6 +132,8 @@ TEST_CASE("Compare map and sort performance")
                     ankerl::nanobench::doNotOptimizeAway(
                         algorithm::get_sorted_strings_using_sort(vec_100));
                 });
+
+            gen("csv", ankerl::nanobench::templates::csv(), bench);
         }
 
         SECTION("1000 elements")
@@ -141,6 +158,8 @@ TEST_CASE("Compare map and sort performance")
                     ankerl::nanobench::doNotOptimizeAway(
                         algorithm::get_sorted_strings_using_sort(vec_1000));
                 });
+
+            gen("csv", ankerl::nanobench::templates::csv(), bench);
         }
     }
 }
