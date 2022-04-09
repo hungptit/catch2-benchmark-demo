@@ -1,5 +1,12 @@
 enable_testing()
 
+# Add nanobench
+FetchContent_Declare(
+  nanobench
+  GIT_REPOSITORY git@github.com:martinus/nanobench.git
+  GIT_TAG master)
+FetchContent_Populate(nanobench)
+
 set(TEST_EXECUTABLE map_vs_sort lookup)
 foreach(test_executable ${TEST_EXECUTABLE})
   add_executable(${test_executable} ${test_executable}.cpp)
