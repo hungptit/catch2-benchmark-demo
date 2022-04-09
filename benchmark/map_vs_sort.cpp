@@ -1,7 +1,9 @@
+#include <algorithm>
 #define CATCH_CONFIG_MAIN
 #define CATCH_CONFIG_ENABLE_BENCHMARKING
 #include "catch2/benchmark/catch_benchmark.hpp"
 #include "catch2/catch_test_macros.hpp"
+#include "nanobench.h"
 
 #include "map_vs_hash.hpp"
 #include "random_string.hpp"
@@ -29,33 +31,104 @@ namespace
 
 TEST_CASE("Compare map and sort performance")
 {
-    BENCHMARK("map 10 elements")
-    {
-        return algorithm::get_sorted_strings_using_map(vec_10);
-    };
+    const auto results = algorithm::get_sorted_strings_using_map(vec_100);
+    REQUIRE(std::is_sorted(results.cbegin(), results.cend()));
 
-    BENCHMARK("sort 10 elements")
+    SECTION("Catch2 built-int benchmark")
     {
-        return algorithm::get_sorted_strings_using_sort(vec_10);
-    };
+        BENCHMARK("map 10 elements using std::map")
+        {
+            return algorithm::get_sorted_strings_using_map(vec_10);
+        };
 
-    BENCHMARK("map 100 elements")
-    {
-        return algorithm::get_sorted_strings_using_map(vec_100);
-    };
+        BENCHMARK("sort 10 elements using std::sort")
+        {
+            return algorithm::get_sorted_strings_using_sort(vec_10);
+        };
 
-    BENCHMARK("sort 100 elements")
-    {
-        return algorithm::get_sorted_strings_using_sort(vec_100);
-    };
+        BENCHMARK("map 100 elements using std::map")
+        {
+            return algorithm::get_sorted_strings_using_map(vec_100);
+        };
 
-    BENCHMARK("map 1000 elements")
-    {
-        return algorithm::get_sorted_strings_using_map(vec_1000);
-    };
+        BENCHMARK("sort 100 elements using std::sort")
+        {
+            return algorithm::get_sorted_strings_using_sort(vec_100);
+        };
 
-    BENCHMARK("sort 1000 elements")
+        BENCHMARK("map 1000 elements using std::map")
+        {
+            return algorithm::get_sorted_strings_using_map(vec_1000);
+        };
+
+        BENCHMARK("sort 1000 elements using std::sort")
+        {
+            return algorithm::get_sorted_strings_using_sort(vec_1000);
+        };
+    }
+
+    SECTION("Use nanobench")
     {
-        return algorithm::get_sorted_strings_using_sort(vec_1000);
-    };
+        constexpr int warmupTimes = 3;
+        SECTION("10 elements")
+        {
+            auto bench = ankerl::nanobench::Bench().title("10 elements").warmup(warmupTimes).relative(true);
+            
+            bench.run(
+                "Using std::map",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_map(vec_10));
+                });
+
+            bench.run(
+                "Using std::sort",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_sort(vec_10));
+                });
+        }
+
+        SECTION("100 elements")
+        {
+            auto bench = ankerl::nanobench::Bench().title("100 elements").warmup(warmupTimes).relative(true);
+            bench.run(
+                "Using std::map",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_map(vec_100));
+                });
+
+            bench.run(
+                "Using std::sort",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_sort(vec_100));
+                });
+        }
+
+        SECTION("1000 elements")
+        {
+            auto bench = ankerl::nanobench::Bench().title("1000 elements").warmup(warmupTimes).relative(true);
+            bench.run(
+                "Using std::map",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_map(vec_1000));
+                });
+
+            bench.run(
+                "Using std::sort",
+                []()
+                {
+                    ankerl::nanobench::doNotOptimizeAway(
+                        algorithm::get_sorted_strings_using_sort(vec_1000));
+                });
+        }
+    }
 }
